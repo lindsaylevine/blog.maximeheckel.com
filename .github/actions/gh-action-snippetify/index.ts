@@ -63,7 +63,11 @@ const createSnippetImage = async (args: SnippetImageArgs): Promise<void> => {
       },
     });
 
-    await writeFileAsync(`./snippets/img/${fileName}.png`, body, 'base64');
+    await writeFileAsync(
+      `./public/static/snippets/${fileName}.png`,
+      body,
+      'base64'
+    );
     console.info(`Created ${fileName}.png`);
   } catch (e) {
     console.error(e);
@@ -134,15 +138,14 @@ const createSnippet = async (args: Args): Promise<void> => {
    *  It has 4 frontmatter fields:
    *  - title: the title/name of the code snippet
    *  - language: the language of the code snippet
-   *  - created: the date when the code snippet was created
+   *  - date: the date when the code snippet was created
    *  - image: the corresponsind code snippet screenshot in png
    */
   const data = `---
 title: ${title}
 language: ${language}
-created: ${today.toISOString()}
+date: ${today.toISOString().toString()}
 slug: ${fileName}
-snippetImage: './img/${fileName}.png'
 type: snippet
 ---
 
